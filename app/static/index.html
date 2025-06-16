@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Flame - Custom Somali Grill | Eastleigh, Nairobi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        urbanRed: '#e63946',
+                        urbanYellow: '#ffbe0b',
+                        urbanOrange: '#fb5607',
+                        urbanDark: '#1d3557',
+                        urbanLight: '#f1faee',
+                        urbanGreen: '#52b788', // For store open
+                        urbanGray: '#8d99ae', // For store closed
+                    }
+                }
+            }
+        }
+    </script>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg-urbanLight font-sans">
+    <header class="flame-bg text-white sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-1 sm:space-x-2">
+                <i class="fas fa-fire text-2xl text-white mr-1 sm:mr-0"></i>
+                <div class="flex flex-col sm:flex-row sm:items-center">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">URBAN <span class="text-urbanYellow">FLAME</span></h1>
+                    <div id="store-status-indicator" class="text-xs rounded font-semibold mt-1 sm:mt-0 sm:ml-3 px-2 py-1">
+                        </div>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="#home" class="hover:text-urbanYellow transition">Home</a>
+                <a href="#menu" class="hover:text-urbanYellow transition">Menu</a>
+                <a href="#build" class="hover:text-urbanYellow transition">Build Your Own</a>
+                <a href="#drinks-sides" class="hover:text-urbanYellow transition">Drinks/Sides</a>
+                <a href="#about" class="hover:text-urbanYellow transition">About</a>
+                <a href="#" id="feedback-link" class="text-sm hover:text-urbanYellow transition">Feedback</a>
+            </nav>
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <div id="user-auth-section" class="text-sm">
+                    </div>
+                <button id="checkout-btn-header" class="bg-urbanDark px-3 sm:px-4 py-2 rounded-full hover:bg-opacity-90 transition text-sm sm:text-base">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ml-1 hidden sm:inline">Cart</span> (<span id="cart-count-header">0</span>)
+                </button>
+                <button class="md:hidden text-2xl" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-nav-menu" class="md:hidden hidden bg-urbanDark bg-opacity-95">
+            <div class="flex justify-end p-2">
+                <button id="mobile-menu-close" aria-label="Close mobile menu" class="text-white text-2xl hover:text-urbanYellow transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <a href="#home" class="block text-white hover:bg-urbanOrange px-4 py-3 transition">Home</a>
+            <a href="#menu" class="block text-white hover:bg-urbanOrange px-4 py-3 transition">Menu</a>
+            <a href="#build" class="block text-white hover:bg-urbanOrange px-4 py-3 transition">Build Your Own</a>
+            <a href="#drinks-sides" class="block text-white hover:bg-urbanOrange px-4 py-3 transition">Drinks/Sides</a>
+            <a href="#about" class="block text-white hover:bg-urbanOrange px-4 py-3 transition">About</a>
+            <a href="#" id="order-history-link-mobile" class="block text-white hover:bg-urbanOrange px-4 py-3 transition hidden">Order History</a>
+            <a href="#" id="feedback-link-mobile" class="block text-white hover:bg-urbanOrange px-4 py-3 transition">Feedback</a>
+        </div>
+    </header>
+
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-40 z-0"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-[-1]">
+            <video autoplay muted loop class="w-full h-full object-cover" poster="https://placehold.co/1920x1080/000000/ffffff?text=Loading+Video...">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-spices-and-seasonings-being-sprinkled-on-chicken-15639-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">IGNITE YOUR TASTE BUDS</h1>
+            <p class="text-xl md:text-2xl text-urbanYellow mb-8">Custom Meals • Fresh Flavors • Eastleigh, Nairobi</p>
+            <p class="text-md text-urbanLight mb-8">Minimum order for delivery: KES 500 (Simulated).</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#build" class="bg-urbanRed text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition">Build Your Own Meal</a>
+                <a href="#menu" class="bg-white text-urbanDark px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 id="dynamic-menu-title" class="text-3xl md:text-4xl font-bold text-urbanDark mb-2">OUR FIERY MENU</h2>
+                <p id="current-period-indicator" class="text-lg text-urbanOrange mb-4"></p>
+                <div class="w-24 h-1 bg-urbanOrange mx-auto"></div>
+            </div>
+            <div id="set-meals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                </div>
+            <div class="text-center mt-8 mb-8">
+                 <a href="#build" class="bg-urbanRed text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition">
+                    Or, Build Your Own Meal <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="build" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-urbanDark mb-4">BUILD YOUR MASTERPIECE</h2>
+                <div class="w-24 h-1 bg-urbanOrange mx-auto"></div>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/3">
+                    <div class="bg-white rounded-xl p-4 sm:p-6 custom-shadow">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4 sm:gap-0">
+                            <h3 id="builder-title" class="text-xl sm:text-2xl font-bold text-urbanDark">Customize Your Meal</h3>
+                            <div class="flex space-x-2">
+                                <button id="clear-current-meal-btn" class="bg-gray-200 text-gray-700 px-3 py-2 rounded-full text-xs sm:text-sm hover:bg-gray-300 transition">
+                                    <i class="fas fa-eraser mr-1"></i> Clear Selections
+                                </button>
+                                <button id="reset-entire-meal-btn" class="bg-red-100 text-red-700 px-3 py-2 rounded-full text-xs sm:text-sm hover:bg-red-200 transition">
+                                    <i class="fas fa-redo mr-1"></i> Reset Meal Type
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bowl-builder overflow-y-auto max-h-[700px] pr-2 sm:pr-4 space-y-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-urbanDark mb-3 flex items-center">
+                                    <span class="w-6 h-6 bg-urbanRed text-white rounded-full flex items-center justify-center mr-2 text-sm">1</span>
+                                    Choose Meal Type
+                                </h4>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4" id="meal-type-selector">
+                                    {/* Meal types loaded by JS */}
+                                </div>
+                            </div>
+                            
+                            {/* Dynamic sections for protein, base, toppings, etc. */}
+                            <div class="hidden" id="protein-section-wrapper">
+                                <h4 class="text-lg font-semibold text-urbanDark mb-3 flex items-center">
+                                    <span class="w-6 h-6 bg-urbanRed text-white rounded-full flex items-center justify-center mr-2 text-sm">2</span>
+                                    Choose Your Protein <span class="text-sm text-gray-500 ml-2" id="proteins-subtitle"></span>
+                                </h4>
+                                <div id="protein-options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"></div>
+                            </div>
+                            <div class="hidden" id="base-section-wrapper">
+                                <h4 class="text-lg font-semibold text-urbanDark mb-3 flex items-center">
+                                    <span class="w-6 h-6 bg-urbanRed text-white rounded-full flex items-center justify-center mr-2 text-sm">3</span>
+                                    Choose Your Base <span class="text-sm text-gray-500 ml-2" id="bases-subtitle">(Included)</span>
+                                </h4>
+                                <div id="base-options-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"></div>
+                            </div>
+                            <div class="hidden" id="saladToppings-section-wrapper">
+                                <h4 class="text-lg font-semibold text-urbanDark mb-3 flex items-center">
+                                    <span class="w-6 h-6 bg-urbanRed text-white rounded-full flex items-center justify-center mr-2 text-sm">4</span>
+                                    Add Salad Toppings <span class="text-sm text-gray-500 ml-2" id="saladToppings-subtitle">(First 3 Included)</span>
+                                </h4>
+                                <div id="saladToppings-options-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"></div>
+                            </div>
+                            <div class="hidden" id="sauces-section-wrapper">
+                                 <h4 class="text-lg font-semibold text-urbanDark mb-3 flex items-center">
+                                    <span class="w-6 h-6 bg-urbanRed text-white rounded-full flex items-center justify-center mr-2 text-sm">5</span>
+                                    Choose Your Sauces <span class="text-sm text-gray-500 ml-2" id="sauces-subtitle">(Included)</span>
+                                </h4>
+                                <div id="sauces-options-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"></div>
+                            </div>
+                            <div class="hidden" id="extras-section-wrapper">
+                                <h4 class="text-lg font-semibold text-urbanDark mb-3 flex items-center">
+                                    <span class="w-6 h-6 bg-urbanRed text-white rounded-full flex items-center justify-center mr-2 text-sm">6</span>
+                                    Extras & Sides <span class="text-sm text-gray-500 ml-2" id="extras-subtitle"></span>
+                                </h4>
+                                <div id="extras-options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/3">
+                    <div class="bg-white rounded-xl p-4 sm:p-6 sticky top-24 custom-shadow order-summary">
+                        <h3 id="current-meal-action-title" class="text-lg sm:text-xl font-bold text-urbanDark mb-4">Your Current Meal</h3>
+                        <div id="order-items" class="mb-6 min-h-[150px]">
+                            <div id="empty-order-placeholder" class="text-center py-8 text-gray-400">
+                                <i class="fas fa-utensils text-4xl mb-2"></i>
+                                <p>Start building your meal!</p>
+                                <p class="text-sm">Selections will appear here.</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4 mb-4">
+                            <div class="flex justify-between text-md sm:text-lg font-bold text-urbanDark">
+                                <span>Item Total:</span>
+                                <span id="current-item-total">KES 0.00</span>
+                            </div>
+                        </div>
+                        <button id="add-to-final-cart-btn" class="w-full bg-urbanOrange text-white py-3 rounded-full font-bold hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                            Add Meal to Cart
+                        </button>
+                        
+                        <div class="mt-6">
+                            <h3 class="text-md sm:text-lg font-bold text-urbanDark mb-3">Final Cart Summary</h3>
+                            <div id="final-cart-items" class="mb-4 max-h-60 overflow-y-auto space-y-2">
+                                <p id="empty-final-cart-placeholder" class="text-sm text-gray-500">No items in final cart.</p>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between text-lg sm:text-xl font-bold">
+                                    <span>Subtotal:</span>
+                                    <span id="grand-total">KES 0.00</span>
+                                </div>
+                            </div>
+                             <button id="checkout-btn-sidebar" class="mt-4 w-full bg-urbanRed text-white py-3 rounded-full font-bold hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="drinks-sides" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-urbanDark mb-4">DRINKS, SIDES & DESSERTS</h2>
+                <div class="w-24 h-1 bg-urbanOrange mx-auto"></div>
+            </div>
+            <div id="standard-items-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-urbanDark text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">OUR STORY</h2>
+                <div class="w-24 h-1 bg-urbanOrange mx-auto"></div>
+            </div>
+            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Urban Flame Restaurant Interior" class="rounded-xl shadow-2xl w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1d3557/f1faee?text=Urban+Flame+Restaurant';">
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 text-urbanYellow">Bringing Bold Flavors to Eastleigh</h3>
+                    <p class="mb-4">Urban Flame was born from our passion for authentic, bold flavors and the vibrant energy of Nairobi's Eastleigh neighborhood. We believe everyone deserves a fresh, customizable meal that excites the taste buds.</p>
+                    <p class="mb-6">Our ingredients are sourced locally whenever possible, and we prepare everything fresh daily. No freezers, no shortcuts - just real food with real flavor.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-urbanLight bg-opacity-10 p-4 rounded-lg">
+                            <div class="flex items-center mb-2"><div class="w-8 h-8 bg-urbanOrange rounded-full flex items-center justify-center mr-3 shrink-0"><i class="fas fa-fire text-white"></i></div><h4 class="font-bold">Our Mission</h4></div>
+                            <p class="text-sm">To ignite passion for bold flavors through fresh, customizable cuisine.</p>
+                        </div>
+                        <div class="bg-urbanLight bg-opacity-10 p-4 rounded-lg">
+                            <div class="flex items-center mb-2"><div class="w-8 h-8 bg-urbanOrange rounded-full flex items-center justify-center mr-3 shrink-0"><i class="fas fa-leaf text-white"></i></div><h4 class="font-bold">Fresh Ingredients</h4></div>
+                            <p class="text-sm">We prepare everything fresh daily with locally sourced ingredients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="find-us" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold text-urbanDark mb-4">FIND US</h2><div class="w-24 h-1 bg-urbanOrange mx-auto"></div></div>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2"><div class="bg-gray-100 rounded-xl overflow-hidden h-96"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.824870943978!2d36.84296991475378!3d-1.27880099906779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f117487874c95%3A0x7732044006199107!2sEastleigh%20Mall!5e0!3m2!1sen!2ske!4v1670000000000!5m2!1sen!2ske" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps Location of Eastleigh Mall"></iframe></div></div>
+                <div class="lg:w-1/2"><div class="bg-urbanLight rounded-xl p-6 sm:p-8 h-full flex flex-col justify-center"><h3 class="text-2xl font-bold text-urbanDark mb-6">Visit Urban Flame</h3><div class="space-y-6">
+                    <div class="flex items-start"><div class="w-10 h-10 bg-urbanOrange bg-opacity-20 rounded-full flex items-center justify-center mr-4 mt-1 shrink-0"><i class="fas fa-map-marker-alt text-urbanOrange"></i></div><div><h4 class="font-bold text-urbanDark mb-1">Location</h4><p class="text-gray-600">Eastleigh Mall, 2nd Floor<br>Eastleigh, Nairobi</p></div></div>
+                    <div class="flex items-start"><div class="w-10 h-10 bg-urbanOrange bg-opacity-20 rounded-full flex items-center justify-center mr-4 mt-1 shrink-0"><i class="fas fa-clock text-urbanOrange"></i></div><div><h4 class="font-bold text-urbanDark mb-1">Hours</h4><p class="text-gray-600">Mon - Sun: 06:30 AM - 10:00 PM</p></div></div> {/* Updated hours */}
+                    <div class="flex items-start"><div class="w-10 h-10 bg-urbanOrange bg-opacity-20 rounded-full flex items-center justify-center mr-4 mt-1 shrink-0"><i class="fas fa-phone-alt text-urbanOrange"></i></div><div><h4 class="font-bold text-urbanDark mb-1">Contact</h4><p class="text-gray-600">Phone: +254 700 123456<br>Email: hello@urbanflame.co.ke</p></div></div>
+                </div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-urbanDark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div><div class="flex items-center space-x-2 mb-4"><i class="fas fa-fire text-2xl text-urbanYellow"></i><h3 class="text-xl font-bold">URBAN FLAME</h3></div><p class="text-gray-400 text-sm mb-4">Custom Meals in the heart of Eastleigh, Nairobi.</p><div class="flex space-x-4"><a href="#" aria-label="Facebook" class="text-gray-400 hover:text-urbanYellow transition"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Instagram" class="text-gray-400 hover:text-urbanYellow transition"><i class="fab fa-instagram"></i></a><a href="#" aria-label="Twitter" class="text-gray-400 hover:text-urbanYellow transition"><i class="fab fa-twitter"></i></a></div></div>
+                <div><h4 class="text-lg font-semibold mb-4">Quick Links</h4><ul class="space-y-2 text-sm"><li><a href="#home" class="text-gray-400 hover:text-urbanYellow transition">Home</a></li><li><a href="#menu" class="text-gray-400 hover:text-urbanYellow transition">Menu</a></li><li><a href="#build" class="text-gray-400 hover:text-urbanYellow transition">Build Your Own</a></li><li><a href="#about" class="text-gray-400 hover:text-urbanYellow transition">About Us</a></li></ul></div>
+                <div><h4 class="text-lg font-semibold mb-4">Contact</h4><ul class="space-y-2 text-sm text-gray-400"><li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2 text-urbanOrange shrink-0"></i><span>Eastleigh Mall, 2nd Floor, Nairobi</span></li><li class="flex items-center"><i class="fas fa-phone-alt mr-2 text-urbanOrange shrink-0"></i><span>+254 700 123456</span></li><li class="flex items-center"><i class="fas fa-envelope mr-2 text-urbanOrange shrink-0"></i><span>hello@urbanflame.co.ke</span></li></ul></div>
+                <div><h4 class="text-lg font-semibold mb-4">Newsletter</h4><p class="text-gray-400 text-sm mb-3">Get updates on special offers and events.</p><form class="flex"><input type="email" placeholder="Your email" aria-label="Email for newsletter" class="px-3 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full text-sm"><button type="submit" aria-label="Subscribe to newsletter" class="bg-urbanOrange px-4 py-2 rounded-r-lg hover:bg-opacity-90 transition"><i class="fas fa-paper-plane"></i></button></form></div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-500 text-sm"><p>© <span id="current-year"></span> Urban Flame. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <div id="checkout-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-urbanDark">Complete Your Order</h3>
+                <button onclick="closeModal('checkout-modal')" aria-label="Close Checkout modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-4">
+                <h4 class="text-md font-semibold text-urbanDark mb-2">Order Type</h4>
+                <div class="flex space-x-4">
+                    <div><input type="radio" id="order-type-delivery" name="orderType" value="delivery" checked class="form-radio text-urbanOrange focus:ring-urbanOrange"><label for="order-type-delivery" class="ml-2">Delivery</label></div>
+                    <div><input type="radio" id="order-type-pickup" name="orderType" value="pickup" class="form-radio text-urbanOrange focus:ring-urbanOrange"><label for="order-type-pickup" class="ml-2">Pickup</label></div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <h4 class="text-md font-semibold text-urbanDark mb-2">Your Order</h4>
+                <div id="modal-final-cart-items" class="max-h-40 overflow-y-auto space-y-2 border p-2 rounded-md bg-gray-50">
+                    <p id="empty-modal-cart-placeholder" class="text-sm text-gray-500 text-center py-4">Cart is empty.</p>
+                </div>
+                <div class="mt-2 text-sm text-gray-600" id="promo-code-message"></div>
+                <div class="mt-2 flex justify-between font-semibold"><span>Subtotal:</span><span id="modal-subtotal">KES 0.00</span></div>
+                <div id="modal-delivery-fee-container" class="mt-1 flex justify-between text-sm"><span>Delivery Fee:</span><span id="modal-delivery-fee">KES 0.00</span></div>
+                <div id="modal-discount-container" class="mt-1 flex justify-between text-sm text-green-600 hidden"><span>Discount:</span><span id="modal-discount-amount">KES 0.00</span></div>
+                <div class="mt-2 flex justify-between font-bold text-lg border-t pt-2"><span>Grand Total:</span><span id="modal-grand-total">KES 0.00</span></div>
+            </div>
+            <form id="payment-form" class="space-y-4">
+                <div id="delivery-address-section">
+                    <h4 class="text-md font-semibold text-urbanDark mb-2">Delivery Address</h4>
+                    <div><label for="delivery-area" class="block text-sm font-medium text-gray-700 mb-1">Street / Estate / Area <span class="text-red-500">*</span></label><input type="text" id="delivery-area" name="delivery-area" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-urbanOrange focus:border-transparent" placeholder="e.g., General Mathenge Rd"></div>
+                    <div class="mt-2"><label for="delivery-details" class="block text-sm font-medium text-gray-700 mb-1">Apt, House No., Floor</label><input type="text" id="delivery-details" name="delivery-details" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-urbanOrange focus:border-transparent" placeholder="e.g., Apt 3B, Flame Towers"></div>
+                    <div class="mt-2" id="save-address-checkbox-container"></div>
+                    <div class="mt-2"><label for="delivery-instructions" class="block text-sm font-medium text-gray-700 mb-1">Delivery Instructions</label><textarea id="delivery-instructions" name="delivery-instructions" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-urbanOrange focus:border-transparent" placeholder="e.g., Call upon arrival"></textarea></div>
+                </div>
+                <div id="pickup-info-section" class="hidden p-3 bg-urbanLight rounded-md">
+                    <h4 class="text-md font-semibold text-urbanDark mb-1">Pickup Information</h4>
+                    <p class="text-sm text-gray-700">You'll pick up your order from: Urban Flame, Eastleigh Mall, 2nd Floor.</p><p class="text-sm text-gray-700">Estimated pickup time will be confirmed.</p>
+                </div>
+                <div class="mt-4">
+                     <label for="promo-code" class="block text-sm font-medium text-gray-700 mb-1">Promo Code</label>
+                     <div class="flex"><input type="text" id="promo-code" name="promo-code" class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-urbanOrange focus:border-transparent" placeholder="Enter promo code"><button type="button" id="apply-promo-btn" class="bg-urbanDark text-white px-4 py-2 rounded-r-lg hover:bg-opacity-80">Apply</button></div>
+                </div>
+                <div><label for="phone" class="block text-sm font-medium text-gray-700 mb-1">M-Pesa Phone Number <span class="text-red-500">*</span></label><input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-urbanOrange focus:border-transparent" placeholder="e.g. 254712345678" required></div>
+                <div class="flex items-center"><input type="checkbox" id="terms" name="terms" class="h-4 w-4 text-urbanOrange focus:ring-urbanOrange border-gray-300 rounded" required><label for="terms" class="ml-2 block text-sm text-gray-700">I agree to the <a href="#" class="text-urbanOrange hover:underline">Terms & Conditions</a></label></div>
+                <button type="submit" class="w-full bg-urbanOrange text-white py-3 rounded-full font-bold hover:bg-opacity-90 transition"><i class="fas fa-mobile-alt mr-2"></i> Place Order & Pay with M-Pesa</button>
+            </form>
+        </div>
+    </div>
+    <div id="confirmation-modal" class="modal hidden">
+        <div class="modal-content text-center">
+            <div class="flex justify-end"><button onclick="closeModal('confirmation-modal'); closeConfirmationAndReset();" aria-label="Close Confirmation Modal" class="text-gray-400 hover:text-gray-600 -mr-2 text-xl"><i class="fas fa-times"></i></button></div>
+            <div class="mb-6"><div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-check text-green-600 text-2xl"></i></div><h3 class="text-xl font-bold text-urbanDark mb-2">Order Confirmed! (Simulated)</h3><p class="text-gray-600 mb-1">Your payment has been processed successfully.</p><p id="confirmation-eta" class="text-urbanOrange font-semibold mb-4"></p><p class="text-sm text-gray-500">Order #<span id="order-number"></span></p></div>
+            <div class="bg-urbanLight rounded-lg p-4 mb-6 text-left"><h4 class="font-medium mb-2">Order Summary</h4><div id="confirmation-items-summary" class="text-sm text-gray-600 mb-2 max-h-40 overflow-y-auto"></div><div id="confirmation-delivery-address-display" class="border-t border-gray-200 pt-2 mt-2"></div><div class="flex justify-between border-t border-gray-200 pt-2 mt-2"><span class="font-medium">Total Paid:</span><span id="confirmation-total-paid" class="font-bold"></span></div></div>
+            <div><p class="text-sm text-gray-500 mb-4">We'll notify you. Thank you for choosing Urban Flame!</p><button onclick="closeModal('confirmation-modal'); closeConfirmationAndReset();" class="w-full bg-urbanOrange text-white py-3 rounded-full font-bold hover:bg-opacity-90 transition">Done</button></div>
+        </div>
+    </div>
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-urbanDark">Login</h3><button onclick="closeModal('login-modal')" aria-label="Close Login Modal" class="text-gray-500"><i class="fas fa-times"></i></button></div><form id="login-form" class="space-y-4"><div><label for="login-email" class="block text-sm">Email (simulated)</label><input type="email" id="login-email" class="w-full p-2 border rounded-md" value="test@example.com"></div><div><label for="login-password" class="block text-sm">Password (simulated)</label><input type="password" id="login-password" class="w-full p-2 border rounded-md" value="password"></div><button type="submit" class="w-full bg-urbanOrange text-white py-2 rounded-md">Login</button><p class="text-xs text-center">No account? <button type="button" onclick="openModal('register-modal'); closeModal('login-modal');" class="text-urbanRed hover:underline">Register here</button></p></form></div>
+    </div>
+    <div id="register-modal" class="modal hidden">
+         <div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-urbanDark">Register</h3><button onclick="closeModal('register-modal')" aria-label="Close Register Modal" class="text-gray-500"><i class="fas fa-times"></i></button></div><form id="register-form" class="space-y-4"><div><label for="reg-name" class="block text-sm">Full Name</label><input type="text" id="reg-name" class="w-full p-2 border rounded-md" required></div><div><label for="reg-email" class="block text-sm">Email</label><input type="email" id="reg-email" class="w-full p-2 border rounded-md" required></div><div><label for="reg-password" class="block text-sm">Password</label><input type="password" id="reg-password" class="w-full p-2 border rounded-md" required></div><button type="submit" class="w-full bg-urbanOrange text-white py-2 rounded-md">Register</button><p class="text-xs text-center">Already have an account? <button type="button" onclick="openModal('login-modal'); closeModal('register-modal');" class="text-urbanRed hover:underline">Login here</button></p></form></div>
+    </div>
+    <div id="order-history-modal" class="modal hidden">
+        <div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-urbanDark">Your Order History</h3><button onclick="closeModal('order-history-modal')" aria-label="Close Order History Modal" class="text-gray-500"><i class="fas fa-times"></i></button></div><div id="order-history-content" class="text-sm space-y-3 max-h-60 overflow-y-auto"><p>No orders found or you are not logged in.</p></div></div>
+    </div>
+    <div id="item-details-modal" class="modal hidden">
+        <div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 id="item-details-title" class="text-xl font-bold text-urbanDark">Item Details</h3><button onclick="closeModal('item-details-modal')" aria-label="Close Item Details Modal" class="text-gray-500"><i class="fas fa-times"></i></button></div><div id="item-details-content"><p>Details about the selected item, including ingredients, allergens (simulated), and a larger image placeholder would go here.</p><p class="mt-2 text-xs text-gray-500">Allergen info: Contains [Simulated Allergen 1], [Simulated Allergen 2]. Please contact us for specific dietary concerns.</p></div></div>
+    </div>
+     <div id="feedback-modal" class="modal hidden">
+        <div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-urbanDark">Submit Feedback</h3><button onclick="closeModal('feedback-modal')" aria-label="Close Feedback Modal" class="text-gray-500"><i class="fas fa-times"></i></button></div><form id="feedback-form" class="space-y-4"><div><label for="feedback-type" class="block text-sm">Feedback Type</label><select id="feedback-type" class="w-full p-2 border rounded-md"><option value="general">General</option><option value="food">Food Quality</option><option value="service">Service</option><option value="website">Website Experience</option></select></div><div><label for="feedback-comments" class="block text-sm">Comments</label><textarea id="feedback-comments" rows="4" class="w-full p-2 border rounded-md" placeholder="Tell us what you think..." required></textarea></div><button type="submit" class="w-full bg-urbanOrange text-white py-2 rounded-md">Submit Feedback (Simulated)</button></form></div>
+    </div>
+<!-- Toast notifications (place anywhere inside <body>) -->
+<div id="toast-container"
+     class="fixed top-4 right-4 z-50 flex flex-col space-y-2"></div>
+
+<script src="/static/script.js" defer></script>
+</body>
+</html>

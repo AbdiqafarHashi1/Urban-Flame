@@ -259,7 +259,7 @@ function assignDomElements() {
     promoCodeMessageEl = document.getElementById('promo-code-message');
     confirmationModalEl = document.getElementById('confirmation-modal');
     confirmationEtaEl = document.getElementById('confirmation-eta');
-    standardItemsContainerEl = document.getElementById('standard-items-container');
+    drinksSidesContainerEl  = document.getElementById('drinks-sides-container');
     storeStatusIndicatorEl = document.getElementById('store-status-indicator');
     userAuthSectionEl = document.getElementById('user-auth-section');
     orderHistoryLinkMobileEl = document.getElementById('order-history-link-mobile');
@@ -443,10 +443,10 @@ function populateSetMealsForCurrentPeriod() {
 }
 
 function populateStandardItems() {
-    if (!standardItemsContainerEl) return;
-    standardItemsContainerEl.innerHTML = '';
+    if (!drinksSidesContainerEl) return;
+    drinksSidesContainerEl.innerHTML = '';
     if (!currentGlobalPeriod) {
-        standardItemsContainerEl.innerHTML = `<p class="text-gray-500 col-span-full text-center py-8">Available during service hours.</p>`;
+       drinksSidesContainerEl.innerHTML = `<p class="text-gray-500 col-span-full text-center py-8">Available during service hours.</p>`;
         return;
     }
     const periodName = menuConfig.mealPeriods.find(p => p.id === currentGlobalPeriod).name;
@@ -456,7 +456,7 @@ function populateStandardItems() {
     const itemsToShow = [...drinks, ...sides, ...desserts].filter(item => item.availableFor.includes(currentGlobalPeriod));
 
     if (itemsToShow.length === 0) {
-        standardItemsContainerEl.innerHTML = `<p class="text-gray-500 col-span-full text-center py-8">No drinks, sides, or desserts listed for ${periodName} at the moment.</p>`;
+        drinksSidesContainerEl.innerHTML = `<p class="text-gray-500 col-span-full text-center py-8">No drinks, sides, or desserts listed for ${periodName} at the moment.</p>`;
         return;
     }
 
@@ -479,7 +479,7 @@ function populateStandardItems() {
                 </div>
                 <button ${item.soldOut ? 'disabled' : ''} onclick="addStandardItemToCart('${item.id}')" class="bg-urbanRed text-white px-3 py-1.5 rounded-full text-xs hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">Add</button>
             </div>`;
-        standardItemsContainerEl.appendChild(card);
+        drinksSidesContainerEl.appendChild(card);
     });
 }
 

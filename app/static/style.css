@@ -1,0 +1,182 @@
+/* General Body Styles (if any needed beyond Tailwind defaults) */
+body {
+    /* Example: if you want a default line-height or something */
+}
+
+/* Header Flame Background Animation */
+.flame-bg {
+    background: linear-gradient(45deg, #fb5607, #ffbe0b, #e63946);
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+}
+@keyframes fade-in-up { from{opacity:0;transform:translateY(6px);} to{opacity:1;} }
+.animate-fade-in-up { animation: fade-in-up .25s ease-out both; }
+.animate-fade-out   { opacity:0; transition: opacity .5s ease; }
+
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Custom Shadow for Cards and Elevated Elements */
+.custom-shadow {
+    box-shadow: 0 4px 20px rgba(251, 86, 7, 0.3);
+}
+
+/* Bowl Builder Scrollbar Styling */
+.bowl-builder {
+    scrollbar-width: thin;
+    scrollbar-color: #fb5607 #f1faee; /* thumb track */
+}
+
+.bowl-builder::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bowl-builder::-webkit-scrollbar-track {
+    background: #f1faee;
+    border-radius: 10px;
+}
+
+.bowl-builder::-webkit-scrollbar-thumb {
+    background-color: #fb5607;
+    border-radius: 10px;
+}
+
+/* Ingredient Card Styling */
+.ingredient-card {
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent; /* Base border for consistent sizing */
+}
+
+.ingredient-card:hover:not(.disabled) {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(251, 86, 7, 0.2);
+}
+
+.ingredient-card.selected {
+    /* Using Tailwind's ring utility is often better for this, applied via JS */
+    /* but if you prefer a border: */
+    border-color: #fb5607; /* urbanOrange */
+    box-shadow: 0 0 0 2px #fb5607; /* A slightly stronger visual cue */
+    /* background-color: #fef3c7; Slightly change background on selection */
+}
+
+
+.ingredient-card.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #e9ecef; /* A light gray for disabled state */
+}
+
+.ingredient-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Order Summary Smooth Transition */
+.order-summary {
+    transition: all 0.3s ease;
+}
+
+/* Grams Input Styling */
+.grams-input {
+    width: 70px; /* Adjusted for smaller cards */
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #cbd5e1; /* Tailwind's gray-300 */
+    border-radius: 0.25rem;
+    text-align: center;
+    margin-left: 0.5rem;
+    font-size: 0.875rem; /* text-sm */
+}
+.grams-input:focus {
+    outline: none;
+    border-color: #fb5607; /* urbanOrange */
+    box-shadow: 0 0 0 2px rgba(251, 86, 7, 0.3);
+}
+
+
+/* Helper class to hide elements (Tailwind also has 'hidden') */
+/* .hidden { display: none !important; } */ /* Using Tailwind's 'hidden' is preferred */
+
+
+/* Current Item Summary Display in Builder */
+.current-item-summary-display {
+    border-left: 3px solid #fb5607; /* urbanOrange */
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.summary-remove-btn {
+    color: #e63946; /* urbanRed */
+    background: none;
+    border: none;
+    padding: 0 0 0 0.25rem;
+    cursor: pointer;
+    font-size: 0.75rem; /* text-xs */
+    line-height: 1;
+    vertical-align: middle;
+}
+.summary-remove-btn:hover {
+    color: #c0303c; /* Darker red */
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.6); /* Slightly darker overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+    opacity: 0; /* Start hidden for transition */
+    visibility: hidden; /* Start hidden for transition */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal:not(.hidden) { /* When modal is shown (hidden class removed) */
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.modal-content {
+    background-color: white;
+    padding: 1.5rem; /* 24px */
+    border-radius: 0.75rem; /* 12px */
+    width: 100%;
+    max-width: 500px; /* Default max width */
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.95); /* Start slightly small for transition */
+    transition: transform 0.3s ease;
+}
+.modal:not(.hidden) .modal-content {
+    transform: scale(1);
+}
+
+
+/* Quantity Input for Standard Items (drinks, sides) */
+.quantity-input {
+    width: 50px; /* Smaller width */
+    text-align: center;
+    -moz-appearance: textfield; /* Firefox */
+    font-size: 0.875rem; /* text-sm */
+    padding: 0.25rem; /* Smaller padding */
+}
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Chrome, Safari, Edge, Opera */
+}
+
+/* Custom focus rings for accessibility if needed beyond Tailwind's defaults */
+/* Example: */
+/* .form-input-custom:focus {
+    border-color: #fb5607;
+    box-shadow: 0 0 0 3px rgba(251, 86, 7, 0.4);
+    outline: none;
+} */

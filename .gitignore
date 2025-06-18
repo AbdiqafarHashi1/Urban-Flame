@@ -11,3 +11,7 @@ __pycache__/
 # OS artifacts
 .DS_Store
 Thumbs.db
+
+# remote entries you want to keep
+.env.local
+.Dockerfile

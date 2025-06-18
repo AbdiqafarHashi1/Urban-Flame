@@ -71,8 +71,9 @@ async function initializeApp() {
         // 2. Fetch actual menu items
         const menuRes = await fetch(MENU_ENDPOINT);
         if (!menuRes.ok) throw new Error(`Menu HTTP ${menuRes.status}`);
-        menuConfig.items = await menuRes.json();      // keep items separate if you like
-        
+
+        Object.assign(menuConfig, await menuRes.json());   // <-- merge, don’t overwrite
+        // or: menuConfig = { ...menuConfig, ...(await menuRes.json()) };        
 
         await initializeUserSession();
         updateActiveMealPeriodAndUI();
@@ -609,7 +610,11 @@ function loadOptions(categoryKey, container, selectionHandler, currentSelections
         return;
     }
     let itemsToLoad = menuConfig[categoryKey] || [];
-    itemsToLoad = itemsToLoad.filter(item => item.availableFor.includes(currentGlobalPeriod));
+    itemsToLoad = itemsToLoad.filter(item =>
+        item.availableFor
+            .map(p => p.trim().toLowerCase())
+            .includes(currentGlobalPeriod.trim().toLowerCase())
+    );    
     if (itemsToLoad.length === 0) {
         container.innerHTML = `<p class="text-gray-500 p-4 text-center">No options available.</p>`;
         return;

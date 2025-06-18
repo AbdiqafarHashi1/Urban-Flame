@@ -1,0 +1,13 @@
+# Node/Vite build outputs and deps
+node_modules/
+dist/
+build/
+
+# Python env and DB files
+__pycache__/
+*.py[cod]
+.env
+
+# OS artifacts
+.DS_Store
+Thumbs.db

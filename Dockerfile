@@ -1,25 +1,23 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
+# Dockerfile
 FROM python:3-slim
 
-EXPOSE 5000
-
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
-
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
-
-# Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
-
+# Set working directory
 WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
 COPY . /app
 
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+# Create and switch to non-root user
+RUN adduser -u 5678 --disabled-password --gecos "" appuser \
+    && chown -R appuser /app
 USER appuser
 
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:app"]
+# (Optional) document the port
+EXPOSE $PORT
+
+# Runtime: start Gunicorn pointing at your run.py’s `app`, binding to the dynamic PORT
+CMD ["sh", "-c", "gunicorn --workers 2 --bind 0.0.0.0:$PORT run:app"]

@@ -1,14 +1,18 @@
 // src/App.jsx
 import React from 'react'
-import './index.css'   // your Tailwind entry CSS
+import './index.css'        // your Tailwind entry CSS
+import Navbar from './components/Navbar'
 
-// src/App.jsx
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-blue-600">
-        🎉 Tailwind is working!
-      </h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navbar />
+      <main className="p-4">
+        {/* TODO: replace with your dashboard content */}
+        <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+          Welcome to Urban Flame Admin
+        </h1>
+      </main>
     </div>
   )
 }
